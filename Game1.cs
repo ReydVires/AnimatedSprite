@@ -14,7 +14,9 @@ namespace AnimatedSprite
         public static int WinWidth { private set; get; }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        KeyboardState lastKeyState;        
+        KeyboardState lastKeyState;
+
+        private AnimatedSprite mrSmiley;
 
         public Game1()
         {
@@ -48,7 +50,8 @@ namespace AnimatedSprite
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            Texture2D texture = Content.Load<Texture2D>("img/SmileyWalk");
+            mrSmiley = new AnimatedSprite(texture, 4, 4);
         }
 
         /// <summary>
@@ -77,7 +80,7 @@ namespace AnimatedSprite
                 Console.WriteLine(deltaTime);                
             }
 
-            // TODO: Add your update logic here
+            mrSmiley.Update();
 
             lastKeyState = keyState;
             base.Update(gameTime);
@@ -91,7 +94,9 @@ namespace AnimatedSprite
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            mrSmiley.Draw(spriteBatch, new Vector2(
+                WinWidth / 2.2f,
+                WinHeight / 2.2f));
 
             base.Draw(gameTime);
         }
