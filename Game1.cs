@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace AnimatedSprite
 {
@@ -9,8 +10,11 @@ namespace AnimatedSprite
     /// </summary>
     public class Game1 : Game
     {
+        public static int WinHeight { private set; get; }
+        public static int WinWidth { private set; get; }
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        KeyboardState lastKeyState;        
 
         public Game1()
         {
@@ -26,7 +30,11 @@ namespace AnimatedSprite
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            WinHeight = 480;
+            WinWidth = 800;
+            graphics.PreferredBackBufferHeight = WinHeight;
+            graphics.PreferredBackBufferWidth = WinWidth;
+            graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -59,11 +67,19 @@ namespace AnimatedSprite
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            var keyState = Keyboard.GetState();
+            var deltaTime = gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (keyState.IsKeyDown(Keys.Escape))
                 Exit();
+            if (keyState.IsKeyDown(Keys.Enter))
+            {
+                Console.WriteLine(deltaTime);                
+            }
 
             // TODO: Add your update logic here
 
+            lastKeyState = keyState;
             base.Update(gameTime);
         }
 
@@ -73,7 +89,7 @@ namespace AnimatedSprite
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
