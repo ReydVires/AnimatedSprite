@@ -17,6 +17,9 @@ namespace AnimatedSprite
         KeyboardState lastKeyState;
 
         private AnimatedSprite mrSmiley;
+        //TODO:
+        //Documentation with comment
+        //Add state for walk
 
         public Game1()
         {
@@ -36,7 +39,7 @@ namespace AnimatedSprite
             WinWidth = 800;
             graphics.PreferredBackBufferHeight = WinHeight;
             graphics.PreferredBackBufferWidth = WinWidth;
-            graphics.ApplyChanges();
+            graphics.ApplyChanges();            
 
             base.Initialize();
         }
